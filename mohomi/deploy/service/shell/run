@@ -1,0 +1,2 @@
+#!/bin/sh
+exec su app -l -c 'exec socat tcp-listen:1337,fork,reuseaddr exec:/bin/bash,stderr,pty,ctty,setsid'

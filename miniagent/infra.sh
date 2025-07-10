@@ -1,0 +1,2 @@
+docker build . -t r3ctf.ops.ret.sh.cn/r3ctf_2025_68688720/miniagent:v0
+docker run --rm -d -e FLAG=flag{infra_test_flag} --cpus "0.2" --memory "256m" -p 30003:8888 r3ctf.ops.ret.sh.cn/r3ctf_2025_68688720/miniagent:v0

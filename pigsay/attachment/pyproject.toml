@@ -1,0 +1,22 @@
+[project]
+name = "r3ctf-pigsay"
+version = "0.1.0"
+authors = [{ name = "woodwhale", email = "awoodwhale@gmail.com" }]
+description = "Welcome to r3ctf 2025!"
+requires-python = ">=3.14"
+dependencies = [
+    "litestar>=2.16.0",
+    "pigsay>=0.1.0",
+    "py7zr>=1.0.0",
+    "pyjwt>=2.10.1",
+    "rarfile>=4.2",
+    "uvicorn>=0.34.3",
+]
+
+
+[[tool.uv.index]]
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+default = true
+
+[tool.uv.pip]
+index-url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"

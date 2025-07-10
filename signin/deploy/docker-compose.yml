@@ -1,0 +1,10 @@
+services:
+  challenge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: r3ctf2025_signin
+    ports:
+      - "8888:8888"
+    environment:
+      - FLAG=R3CTF{test}

@@ -1,0 +1,1 @@
+secret_flag_part = 'finding_reduced_round_keccak'

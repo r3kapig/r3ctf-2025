@@ -1,0 +1,71 @@
+use ret2api::crypto;
+use ret2api::utils;
+
+/// the flag prefix, the game name for example, `flag` means the flag will be `flag{...}`
+const PREFIX = "R3CTF";
+/// the secret key for encryption
+const SECRET = "bef1d04cfa89d67a4f750ae69440a82c";
+/// the message?
+const MESSAGE = "Maybe-VibeReviewing-Is-Not-A-Good-Idea";
+
+/// Check flag submitted by user.
+///
+/// * bucket: the challenge `ret2api::bucket::Bucket` object
+/// * user: { id: number, account: string, institute_id: number }
+/// * team: { id: Option<number>, name: Option<string>, institute_id: Option<number> }
+/// * submission: { id: number, user_id: number, team_id: number, challenge_id: number, content: string }
+///
+/// Returns: Result<(bool, string, Option<{peer_team: i64, reason: string}>), any>
+/// means (correct, msg, audit: { peer_team, reason }), when audit is not None, the team will be treated as cheated,
+/// and the platform will publish a event to administrators.
+///
+/// The audit message will be validate again in the platform, so don't worry about false positives.
+pub async fn check(bucket, user, team, submission) {
+  let flag = utils::Flag::parse(submission.content)?;
+  if flag.prefix() != PREFIX {
+    return Ok((false, `Wrong format! flag should be ${PREFIX}{...}`, None));
+  }
+
+  let team_token = if let Some(token) = team.token {
+    token
+  } else {
+    "JMoAzw5dlSOETIKoTTTIE"
+  };
+  
+  let contents = flag.content().split('_').collect::<Vec>();
+  if contents.len() != 2 {
+    return Ok((false, "Invalid flag format, should be <message>_<signature>", None));
+  }
+  let message = contents[0];
+  if message != MESSAGE {
+    return Ok((false, "Incorrect!", None));
+  }
+  let signature_hex = contents[1];
+
+  let signature = utils::hex2bytes(signature_hex)?;
+  let nonce = signature[..12];
+  let ct = signature[12..];
+  let key = crypto::Hmac::hmac_sha256_sign(
+    Bytes::from_vec(utils::str2bytes(SECRET)),
+    Bytes::from_vec(utils::str2bytes(team_token)),
+  );
+  let decrypted = crypto::AesGcm::decrypt_256(
+    Bytes::from_vec(key), 
+    Bytes::from_vec(ct), 
+    Bytes::from_vec(nonce),
+  );
+  match decrypted {
+    Ok(dec) => {
+      let decrypted = utils::bytes2str(Bytes::from_vec(dec)).trim();
+      Ok((true, format!("Congratulations {}! The flag is correct!", decrypted), None))
+    }
+    Err(e) => {
+      Ok((false, "Incorrect!",  None))
+    }
+  }
+}
+
+// mock function
+pub async fn environ(bucket, user, team) {
+  Ok(#{})
+}

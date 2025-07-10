@@ -1,0 +1,11 @@
+version: '3'
+services:
+  evalgelist:
+    build: ../
+    environment:
+      # 仅为测试用flag
+      GZCTF_FLAG: "R3CTF{g00d_j0b_my_fr13nd}"
+    ports:
+      # 设置了暴露端口
+      - 8080:80
+    restart: unless-stopped

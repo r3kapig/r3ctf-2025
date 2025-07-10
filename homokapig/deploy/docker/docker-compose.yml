@@ -1,0 +1,10 @@
+version: '3'
+services:
+  test:
+    # image: test
+    build: ../
+    environment:
+      FLAG: "R3CTF{3axc4_Sch3me_41s0_H4s_1ND-CP4_S3cur1ty_Pr0bl3m}"
+    ports:
+      - 9999:9999
+    restart: unless-stopped

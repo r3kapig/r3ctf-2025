@@ -1,0 +1,17 @@
+name = "R3CTF 2025"
+updated_at = 1751766444
+brief = "Give me a point, I can lift a flappy pig."
+start_at = 1751680800
+end_at = 1751853600
+register_at = 1750608000
+archive_at = 1752422400
+host_type = 1
+team_size = 4
+cover = "50fc842c08f9fe93bd4b993516f2979cb708e8dca81c9eb64be09a40ad928541"
+logo = "958d7e03e60f701c351154fd626841fcc71edfdd42d04505f97cf61765fb6993"
+can_register_after_started = true
+award_rate = 0
+weight = 3
+
+[access_policy]
+sync = 2

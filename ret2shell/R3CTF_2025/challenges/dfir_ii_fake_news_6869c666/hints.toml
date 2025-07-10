@@ -1,0 +1,3 @@
+[[hints]]
+content = 'Q9: Calculate the MD5 hash of the content within the "xxxx" part of the PowerShell command powershell -c "xxxx"'
+cost = 0

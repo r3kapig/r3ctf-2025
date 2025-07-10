@@ -1,0 +1,7 @@
+services:
+  app:
+    build: ./
+    ports:
+      - "8000:8000"
+    environment:
+      - FLAG=R3CTF{Welcome_R3CTF_2025!}

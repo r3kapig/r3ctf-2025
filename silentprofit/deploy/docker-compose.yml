@@ -1,0 +1,19 @@
+services:
+  localhost:
+    build:
+      context: ./html
+    ports:
+      - 30018:80
+    environment:
+      - FLAG=flag{infra_test_flag}
+    restart: unless-stopped
+
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    ports:
+      - 30019:31337
+    environment:
+      - FLAG=flag{infra_test_flag}
+    restart: unless-stopped

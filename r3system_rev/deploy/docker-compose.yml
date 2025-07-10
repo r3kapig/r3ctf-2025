@@ -1,0 +1,10 @@
+services:
+  test:
+    build: ./
+    environment:
+      # 仅为测试用flag
+      FLAG: "R3CTF{mt19937_randint_is_really_dangerous_dont_use_it_to_code_your_task_now_plz_remember_this}"
+    ports:
+      # 设置了暴露端口
+      - 11421:11421
+    restart: unless-stopped

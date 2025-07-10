@@ -1,0 +1,1 @@
+sudo docker stop socpclv2 && sudo docker rm socpclv2

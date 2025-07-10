@@ -1,0 +1,12 @@
+services:
+  submission-server:
+    build: .
+    container_name: submission-server
+    network_mode: host
+    volumes:
+      - ./submissions.db:/app/submissions.db
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+    # 使用host网络模式，不需要ports配置
+    # 应用将在宿主机的30028端口运行 

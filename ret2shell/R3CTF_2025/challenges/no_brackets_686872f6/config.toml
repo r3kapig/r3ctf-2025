@@ -1,0 +1,18 @@
+name = "No Brackets"
+
+[[tag]]
+name = "Misc"
+primary = true
+
+[[tag]]
+name = "Jail"
+primary = false
+
+[[tag]]
+name = "Pwn?"
+primary = false
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

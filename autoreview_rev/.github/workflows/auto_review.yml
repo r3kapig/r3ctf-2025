@@ -1,0 +1,45 @@
+name: LLM powered PR review
+on:
+  pull_request_target
+jobs:
+  auto-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    timeout-minutes: 3
+    steps:
+      - name: Checkout base
+        uses: actions/checkout@main
+      - name: Build base
+        run: |
+          go mod tidy
+          go build -o $HOME/auto-review
+      - name: Checkout PR
+        uses: actions/checkout@main
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
+      - name: Prebuild checks
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          FLAG: ${{ secrets.FLAG }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        run: |
+          echo "Commit authored by:"
+          git log -1 HEAD | grep Author
+          git diff --name-only $BASE_SHA -r | if grep -q 'test' ; then exit 1; fi
+          TOKEN=$($HOME/auto-review gen_token)
+          echo "::add-mask::$TOKEN"
+          echo TOKEN=$TOKEN >> $GITHUB_ENV
+      - name: Build PR
+        run: |
+          go mod tidy
+          CGO_ENABLED=0 GOOS=linux go build -o $HOME/auto-review2 &> /dev/null
+      - name: Run auto-review
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_TOKEN: ${{ github.token }}
+          SERVER_ADDR: ws://autoreview.s2.r3.ret.sh.cn:37160/ws
+        run: |
+          ~/auto-review client

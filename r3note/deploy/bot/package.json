@@ -1,0 +1,10 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.mjs",
+  "dependencies": {
+    "express": "^4.21.2",
+    "puppeteer": "^24.11.2"
+  }
+}

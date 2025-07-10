@@ -1,0 +1,22 @@
+name = "auto_r3view_revenge"
+
+[[tag]]
+name = "Misc"
+primary = true
+
+[[tag]]
+name = "LLM"
+primary = false
+
+[[tag]]
+name = "Github"
+primary = false
+
+[[tag]]
+name = "Web"
+primary = false
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

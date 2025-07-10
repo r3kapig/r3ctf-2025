@@ -1,0 +1,82 @@
+//! * dynamic-leet.rx
+//! Dynamic flag check with template and steganographic data.
+
+use ret2api::audit;
+use ret2api::utils;
+
+/// the flag encryption key
+const ENCRYPT_KEY = "k5K8Pz83Gn12NL31";
+/// the flag prefix, the game name for example, `flag` means the flag will be `flag{...}`
+const PREFIX = "R3CTF";
+/// the flag template (readable recommended), used to generate the correct flag content
+const TEMPLATE = "B234k1nG_m1necR4ft_c0llISI0n_rules_yOu_5T3pp3d_B3y0nd_Th3_vOId_and_QuI3Tly_rEw2o73_mov3ment_1@w5";
+
+/// Check flag submitted by user.
+///
+/// * bucket: the challenge `ret2api::bucket::Bucket` object
+/// * user: { id: number, account: string, institute_id: number }
+/// * team: { id: Option<number>, name: Option<string>, institute_id: Option<number> }
+/// * submission: { id: number, user_id: number, team_id: number, challenge_id: number, content: string }
+///
+/// Returns: Result<(bool, string, Option<{peer_team: i64, reason: string}>), any>
+/// means (correct, msg, audit: { peer_team, reason }), when audit is not None, the team will be treated as cheated,
+/// and the platform will publish a event to administrators.
+///
+/// The audit message will be validate again in the platform, so don't worry about false positives.
+pub async fn check(bucket, user, team, submission) {
+  let flag = utils::Flag::parse(submission.content)?;
+  if flag.prefix() != PREFIX {
+    return Ok((false, `Wrong format! flag should be ${PREFIX}{...}`, None))
+  }
+
+  let enc_id = if let Some(id) = team.id {
+    id
+  } else {
+    user.id
+  };
+
+  // the flag is correct, full matched
+  let correct_content = audit::encode(TEMPLATE, ENCRYPT_KEY, enc_id);
+  if correct_content == flag.content() {
+    return Ok((true, "Correct!", None));
+  }
+
+  // extract peer_team id
+  let res = audit::decode(TEMPLATE, ENCRYPT_KEY, flag.content());
+  let dec_id = match res {
+    Ok(id) => id,
+    // error handling
+    Err(_) => return Ok((false, "Incorrect!", None))
+  };
+
+  // the flag is wrong, let's see whether the team has cheated
+  if let Some(id) = team.id {
+    if dec_id != id {
+      return Ok((false, "Incorrect!", Some(#{
+        peer_team: dec_id,
+        reason: `team ${id}:'${team.name.unwrap()}' may cheated with team ${dec_id}`
+      })));
+    }
+  }
+
+  Ok((false, "Incorrect!", None))
+}
+
+/// Provides the environment variables when user starts the challenge container.
+///
+/// * bucket: the challenge `ret2api::bucket::Bucket` object
+/// * user: { id: number, account: string, institute_id: number }
+/// * team: { id: Option<number>, name: Option<string>, institute_id: Option<number> }
+///
+/// Returns: Result<#{ [key: string]: string }, any>
+pub async fn environ(bucket, user, team) {
+  let enc_id = if let Some(id) = team.id {
+    id
+  } else {
+    user.id
+  };
+  let content = audit::encode(TEMPLATE, ENCRYPT_KEY, enc_id);
+  Ok(#{
+    FLAG: utils::Flag::new().with_prefix(PREFIX).with_content(content).to_string(),
+  })
+}

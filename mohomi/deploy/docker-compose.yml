@@ -1,0 +1,9 @@
+name: mohomi
+
+services:
+  app:
+    build: .
+    ports:
+      - "1337:1337"
+    environment:
+      FLAG: "flag{this_is_a_fake_flag_for_testing_purposes}"

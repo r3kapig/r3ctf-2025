@@ -1,0 +1,10 @@
+name = "ottol r3pus"
+
+[[tag]]
+name = "Crypto"
+primary = true
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

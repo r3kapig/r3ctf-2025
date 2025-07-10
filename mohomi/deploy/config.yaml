@@ -1,0 +1,4 @@
+mixed-port: 1080
+allow-lan: false
+log-level: debug
+external-controller-unix: mihomo.sock

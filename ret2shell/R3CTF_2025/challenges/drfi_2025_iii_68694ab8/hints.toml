@@ -1,0 +1,7 @@
+[[hints]]
+content = "The process in Q1 specifically refers to the process that communicates with server"
+cost = 0
+
+[[hints]]
+content = "In most attack scenarios, attackers may attempt to deploy more covert backdoors through initial implants for persistent control. However, is there a special type of application that can be hijacked without using any techniques related to DLL hijacking?"
+cost = 0

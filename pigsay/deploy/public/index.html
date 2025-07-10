@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PigSay Encrypt/Decrypt Tool</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="pig-icon">🐷</div>
+                <h1>PigSay Encrypt/Decrypt Tool</h1>
+            </div>
+            <p class="description">Secure text transformation with PigSay algorithm</p>
+        </header>
+
+        <main class="main">
+            <!-- Text Encryption Section -->
+            <section class="card text-section">
+                <h2 class="section-title">
+                    <span class="icon">📝</span>
+                    Text Encryption/Decryption
+                </h2>
+
+                <div class="input-group">
+                    <label for="textInput">Input Text:</label>
+                    <textarea id="textInput" placeholder="Enter your text here..." rows="6"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button id="encryptBtn" class="btn btn-primary">
+                        <span class="btn-icon">🔒</span>
+                        Encrypt
+                    </button>
+                    <button id="decryptBtn" class="btn btn-secondary">
+                        <span class="btn-icon">🔓</span>
+                        Decrypt
+                    </button>
+                    <button id="clearTextBtn" class="btn btn-outline">
+                        <span class="btn-icon">🗑️</span>
+                        Clear
+                    </button>
+                </div>
+
+                <div class="output-group">
+                    <label for="textOutput">Result:</label>
+                    <textarea id="textOutput" readonly rows="6" placeholder="Result will appear here..."></textarea>
+                    <button id="copyBtn" class="btn btn-small">
+                        <span class="btn-icon">📋</span>
+                        Copy
+                    </button>
+                </div>
+            </section>
+
+            <!-- File Encryption Section -->
+            <section class="card file-section">
+                <h2 class="section-title">
+                    <span class="icon">📁</span>
+                    File Encryption/Decryption
+                </h2>
+
+                <div class="file-upload-area" id="fileUploadArea">
+                    <div class="upload-icon">📤</div>
+                    <p class="upload-text">
+                        <strong>Click to upload</strong> or drag and drop
+                    </p>
+                    <p class="upload-hint">
+                        Supported formats: .zip, .rar, .tar.gz, .7z
+                    </p>
+                    <input type="file" id="fileInput" accept=".zip,.rar,.gz,.7z" hidden>
+                </div>
+
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <div class="file-details">
+                        <span class="file-name" id="fileName"></span>
+                        <span class="file-size" id="fileSize"></span>
+                    </div>
+                    <button id="removeFileBtn" class="btn btn-small btn-danger">
+                        <span class="btn-icon">❌</span>
+                        Remove
+                    </button>
+                </div>
+
+                <div class="button-group">
+                    <button id="encryptFileBtn" class="btn btn-primary" disabled>
+                        <span class="btn-icon">🔒</span>
+                        Encrypt File
+                    </button>
+                    <button id="decryptFileBtn" class="btn btn-secondary" disabled>
+                        <span class="btn-icon">🔓</span>
+                        Decrypt File
+                    </button>
+                </div>
+
+                <div class="file-result" id="fileResult" style="display: none;">
+                    <h3>Processing Result:</h3>
+                    <div class="result-content" id="resultContent"></div>
+                    <button id="downloadBtn" class="btn btn-success" style="display: none;">
+                        <span class="btn-icon">⬇️</span>
+                        Download Result
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Processing...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

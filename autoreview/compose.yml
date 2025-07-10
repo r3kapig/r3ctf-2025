@@ -1,0 +1,11 @@
+services:
+  auto_review:
+    container_name: auto_review_app
+    build: .
+    ports:
+      - "33202:8080"
+    restart: always
+
+  redis:
+    image: redis:7
+    container_name: auto_review_redis

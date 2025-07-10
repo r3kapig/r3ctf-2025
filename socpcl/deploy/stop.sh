@@ -1,0 +1,1 @@
+sudo docker stop socpcl && sudo docker rm socpcl

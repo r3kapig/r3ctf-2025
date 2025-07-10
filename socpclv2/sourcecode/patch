@@ -1,0 +1,46 @@
+diff --git a/programs/bpf_loader/src/syscalls/cpi.rs b/programs/bpf_loader/src/syscalls/cpi.rs
+index 3a690ec360..a5fc80cea9 100644
+--- a/programs/bpf_loader/src/syscalls/cpi.rs
++++ b/programs/bpf_loader/src/syscalls/cpi.rs
+@@ -957,10 +957,11 @@ fn cpi_common<S: SyscallInvokeSigned>(
+         memory_mapping,
+         invoke_context,
+     )?;
+-    let is_loader_deprecated = *instruction_context
+-        .try_borrow_last_program_account(transaction_context)?
+-        .get_owner()
+-        == bpf_loader_deprecated::id();
++    // let is_loader_deprecated = *instruction_context
++    //     .try_borrow_last_program_account(transaction_context)?
++    //     .get_owner()
++    //     == bpf_loader_deprecated::id();
++    let is_loader_deprecated = true;
+     let (instruction_accounts, program_indices) =
+         invoke_context.prepare_instruction(&instruction, &signers)?;
+     check_authorized_program(&instruction.program_id, &instruction.data, invoke_context)?;
+diff --git a/validator/src/bin/solana-test-validator.rs b/validator/src/bin/solana-test-validator.rs
+index 69f749cfcb..3989b54477 100644
+--- a/validator/src/bin/solana-test-validator.rs
++++ b/validator/src/bin/solana-test-validator.rs
+@@ -40,6 +40,7 @@ use {
+         sync::{Arc, RwLock},
+         time::{Duration, SystemTime, UNIX_EPOCH},
+     },
++    lazy_static::lazy_static
+ };
+ 
+ #[derive(PartialEq, Eq)]
+@@ -65,6 +66,13 @@ fn main() {
+     let ledger_path = value_t_or_exit!(matches, "ledger_path", PathBuf);
+     let reset_ledger = matches.is_present("reset");
+ 
++    lazy_static! {
++    static ref FLAG: String = {
++        fs::read_to_string("./flag")
++            .expect("Failed to read file")
++    };
++    }
++    let _content = &*FLAG;
+     let indexes: HashSet<AccountIndex> = matches
+         .values_of("account_indexes")
+         .unwrap_or_default()

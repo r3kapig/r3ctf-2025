@@ -1,0 +1,10 @@
+name = "Silent Profit"
+
+[[tag]]
+name = "Web"
+primary = true
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

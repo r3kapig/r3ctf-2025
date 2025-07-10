@@ -1,0 +1,14 @@
+name = "DFIR 2025 Ⅱ: fake news"
+
+[[tag]]
+name = "Forensics"
+primary = true
+
+[[tag]]
+name = "Reverse"
+primary = false
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

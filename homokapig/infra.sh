@@ -1,0 +1,2 @@
+docker build . -t r3ctf.ops.ret.sh.cn/r3ctf_2025_68688720/homokapig:v0
+docker run --rm -d -e FLAG=flag{infra_test_flag} --cpus "1" --memory "2048m" -p 30027:9999 r3ctf.ops.ret.sh.cn/r3ctf_2025_68688720/homokapig:v0

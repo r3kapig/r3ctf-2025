@@ -1,0 +1,2 @@
+docker build . -t r3ctf.ops.ret.sh.cn/r3ctf_2025_68688720/r4craft:v1
+docker run --rm -d -e FLAG=flag{infra_test_flag} --cpus "1" --memory "1024m" -p 30009:25565 r3ctf.ops.ret.sh.cn/r3ctf_2025_68688720/r4craft:v1

@@ -1,0 +1,14 @@
+name = "Bullying ELF"
+
+[[tag]]
+name = "Misc"
+primary = true
+
+[[tag]]
+name = "ELF"
+primary = false
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

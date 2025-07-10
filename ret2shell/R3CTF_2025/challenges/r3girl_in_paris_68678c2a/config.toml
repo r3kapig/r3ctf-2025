@@ -1,0 +1,14 @@
+name = "R3GIRL in Paris"
+
+[[tag]]
+name = "Misc"
+primary = true
+
+[[tag]]
+name = "OSINT"
+primary = false
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

@@ -1,0 +1,3 @@
+[[hints]]
+content = "keccak224-4 is 4round keccak224"
+cost = 0

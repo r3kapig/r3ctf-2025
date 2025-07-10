@@ -1,0 +1,14 @@
+name = "Spad3kapig"
+
+[[tag]]
+name = "Crypto"
+primary = true
+
+[[tag]]
+name = "Reverse"
+primary = false
+
+[score_rule]
+initial = 1000
+minimum = 200
+decay = 30

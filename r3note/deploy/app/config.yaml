@@ -1,0 +1,11 @@
+server:
+  port: "127.0.0.1:3000"
+jwt:
+  secret: "JWTKEY"
+database:
+  path: "./note.db"
+upload:
+  path: "./files/upload"
+static:
+  path: "./files"
+  index: "./index.html"
