@@ -1,0 +1,6 @@
+magicsvg/deploy/buster filter=lfs diff=lfs merge=lfs -text
+socpclv2/attachment/validator filter=lfs diff=lfs merge=lfs -text
+socpcl/attachment/validator filter=lfs diff=lfs merge=lfs -text
+magicsvg/attachment/magicsvg.zip filter=lfs diff=lfs merge=lfs -text
+magicsvg/deploy/bookworm filter=lfs diff=lfs merge=lfs -text
+magicsvg/deploy/bullseye filter=lfs diff=lfs merge=lfs -text
