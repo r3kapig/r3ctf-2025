@@ -5,14 +5,14 @@ Welcome to the vibrant R3Coin exchange within the Crypto Block! Here, the very f
 ## Hints:
 1. https://github.com/JHUISI/charm
 
-## Solves
+## Solves:
 
 11
 
-## First Blood
+## First Blood:
 
 HashTeam
 
-## Author
+## Author:
 
 WCjrCK
